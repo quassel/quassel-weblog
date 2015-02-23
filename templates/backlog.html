@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{channel}} logs{% endblock %}
+{% block body %}
+
+<style type="text/css">
+.backlog .message-type-8 .msg,
+.backlog .message-type-16 .msg,
+.backlog .message-type-32 .msg,
+.backlog .message-type-128 .msg {
+	color: fuchsia;
+}
+.backlog .message-type-16384 .msg {
+	color: green;
+}
+.backlog .message-type-8 .msg::before {
+	content: "Now known as: ";
+}
+.backlog .message-type-16 .msg::before {
+	content: "Mode: ";
+}
+.backlog .message-type-32 .msg::before {
+	content: "Joined: ";
+}
+.backlog .message-type-128 .msg::before {
+	content: "Quit: ";
+}
+.backlog .time {
+	color: grey;
+}
+.backlog .sender::before {
+	content: "<";
+}
+.backlog .sender::after {
+	content: ">";
+}
+.backlog .time::before {
+	content: "[";
+}
+.backlog .time::after {
+	content: "]";
+}
+</style>
+
+<h3>Starting at {{messages[0].time}} on {{channel}}</h3>
+<table class="backlog">
+	<tbody>
+	{% for message in messages %}
+		<tr class="message-type-{{message.type}}">
+			<td class="time" title="{{message.time.strftime('%d-%m-%Y')}}">{{message.time.strftime("%H:%M:%S")}}</td>
+			<td class="sender">{{message.sender.pretty_name()}}</td>
+			<td class="msg">{{message.message}}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
