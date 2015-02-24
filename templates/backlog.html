@@ -12,6 +12,9 @@
 .backlog .message-type-16384 .msg {
 	color: green;
 }
+.backlog .message-type-1 .msg.highlight {
+	background-color: orange;
+}
 .backlog .message-type-8 .msg::before {
 	content: "Now known as: ";
 }
@@ -48,7 +51,7 @@
 		<tr class="message-type-{{message.type}}">
 			<td class="time" title="{{message.time.strftime('%d-%m-%Y')}}">{{message.time.strftime("%H:%M:%S")}}</td>
 			<td class="sender">{{message.sender.pretty_name()}}</td>
-			<td class="msg">{{message.message}}</td>
+			<td class="msg {% if highlight in message.message %}highlight{% endif %}">{{message.message}}</td>
 		</tr>
 	{% endfor %}
 	</tbody>

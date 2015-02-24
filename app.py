@@ -33,6 +33,7 @@ def channel_index(name):
 
 	context = {
 		"channel": channel_name,
+		"highlight": request.args.get("highlight", ""),
 		"messages": query,
 	}
 	return render_template("backlog.html", **context)
