@@ -51,7 +51,7 @@
 		<tr class="message-type-{{message.type}}">
 			<td class="time" title="{{message.time.strftime('%d-%m-%Y')}}">{{message.time.strftime("%H:%M:%S")}}</td>
 			<td class="sender">{{message.sender.pretty_name()}}</td>
-			<td class="msg {% if highlight in message.message %}highlight{% endif %}">{{message.message}}</td>
+			<td class="msg {% if highlight and highlight in message.message.lower() %}highlight{% endif %}">{{message.message}}</td>
 		</tr>
 	{% endfor %}
 	</tbody>
