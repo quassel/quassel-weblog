@@ -22,14 +22,19 @@ def index():
 def channel_index(name):
 	if name not in config.channels:
 		abort(404)
-	query = session.query(Message).filter(Message.time >= date.today() - timedelta(config.days))
+	query = session.query(Message).join(Sender)
 	query = query.order_by(asc(Message.time))
-	query = query.options(joinedload(Message.sender))
-	query = query.options(joinedload(Message.buffer))
+	query = query.filter(Message.time >= date.today() - timedelta(config.days))
+	#query = query.options(joinedload(Message.sender))
+	#query = query.options(joinedload(Message.buffer))
 	query = query.join(Message.buffer)
 	query = query.filter(Buffer.userid == 1)
 	channel_name = "#" + name # XXX
 	query = query.filter(Buffer.name == channel_name)
+
+	nick = request.args.get("nick")
+	if nick:
+		query = query.filter(Sender.name.startswith(nick))
 
 	context = {
 		"channel": channel_name,

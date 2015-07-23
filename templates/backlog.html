@@ -50,7 +50,7 @@
 	{% for message in messages %}
 		<tr class="message-type-{{message.type}}">
 			<td class="time" title="{{message.time.strftime('%d-%m-%Y')}}">{{message.time.strftime("%H:%M:%S")}}</td>
-			<td class="sender">{{message.sender.pretty_name()}}</td>
+			<td class="sender"><a href="?nick={{message.sender.pretty_name()}}">{{message.sender.pretty_name()}}</a></td>
 			<td class="msg {% if highlight and highlight in message.message.lower() %}highlight{% endif %}">
 				{{message.message|urlize()}}
 			</td>
