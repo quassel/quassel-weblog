@@ -1,4 +1,5 @@
 import hashlib
+import re
 from datetime import date, timedelta
 from flask import Flask, render_template, request, abort
 from sqlalchemy import asc, desc
@@ -24,6 +25,12 @@ def hash_nick(nick):
 	return int(hash.hexdigest(), 16)
 
 
+def process_message(message):
+	message = re.sub("\x03(\\d\\d)", r'<span class="color\1">', message)
+	message = message.replace("\x0f", "</span>")
+	return message
+
+
 @app.route("/<name>/")
 def channel_index(name):
 	if name not in config.channels:
@@ -47,6 +54,7 @@ def channel_index(name):
 		"highlight": request.args.get("highlight", "").lower(),
 		"messages": query,
 		"hash": hash_nick,
+		"process_message": process_message,
 	}
 	return render_template("backlog.html", **context)
 

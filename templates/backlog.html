@@ -71,7 +71,7 @@
 			<td class="time" title="{{message.time.strftime('%d-%m-%Y')}}">{{message.time.strftime("%H:%M:%S")}}</td>
 			<td class="sender"><a href="?nick={{message.sender.pretty_name()}}" class="color{{ hash(message.sender.pretty_name()) % 16 }}">{{message.sender.pretty_name()}}</a></td>
 			<td class="msg {% if highlight and highlight in message.message.lower() %}highlight{% endif %}">
-				{{message.message|urlize()}}
+				{{process_message(message.message)|safe|urlize()}}
 			</td>
 		</tr>
 	{% endfor %}
