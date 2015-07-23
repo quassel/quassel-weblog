@@ -1,3 +1,4 @@
+import hashlib
 from datetime import date, timedelta
 from flask import Flask, render_template, request, abort
 from sqlalchemy import asc, desc
@@ -16,6 +17,11 @@ session = quassel_session(config.uri)
 @app.route("/")
 def index():
         return render_template("page/index.html", **{"channels": config.channels})
+
+
+def hash_nick(nick):
+	hash = hashlib.sha1(nick.encode("utf-8"))
+	return int(hash.hexdigest(), 16)
 
 
 @app.route("/<name>/")
@@ -40,6 +46,7 @@ def channel_index(name):
 		"channel": channel_name,
 		"highlight": request.args.get("highlight", "").lower(),
 		"messages": query,
+		"hash": hash_nick,
 	}
 	return render_template("backlog.html", **context)
 

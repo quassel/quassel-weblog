@@ -36,12 +36,31 @@
 .backlog .sender::after {
 	content: ">";
 }
+.backlog .sender a {
+	text-decoration: none;
+}
 .backlog .time::before {
 	content: "[";
 }
 .backlog .time::after {
 	content: "]";
 }
+.color0 { color: #e90d7f }
+.color1 { color: #8e55e9 }
+.color2 { color: #b30e0e }
+.color3 { color: #17b339 }
+.color4 { color: #58afb3 }
+.color5 { color: #9d54b3 }
+.color6 { color: #b39775 }
+.color7 { color: #3176b3 }
+.color8 { color: #e90d7f }
+.color9 { color: #8e55e9 }
+.color10 { color: #b30e0e }
+.color11 { color: #17b339 }
+.color12 { color: #58afb3 }
+.color13 { color: #9d54b3 }
+.color14 { color: #b39775 }
+.color15 { color: #3176b3 }
 </style>
 
 <h3>Starting at {{messages[0].time}} on {{channel}}</h3>
@@ -50,7 +69,7 @@
 	{% for message in messages %}
 		<tr class="message-type-{{message.type}}">
 			<td class="time" title="{{message.time.strftime('%d-%m-%Y')}}">{{message.time.strftime("%H:%M:%S")}}</td>
-			<td class="sender"><a href="?nick={{message.sender.pretty_name()}}">{{message.sender.pretty_name()}}</a></td>
+			<td class="sender"><a href="?nick={{message.sender.pretty_name()}}" class="color{{ hash(message.sender.pretty_name()) % 16 }}">{{message.sender.pretty_name()}}</a></td>
 			<td class="msg {% if highlight and highlight in message.message.lower() %}highlight{% endif %}">
 				{{message.message|urlize()}}
 			</td>
