@@ -2,6 +2,7 @@ import hashlib
 import re
 from datetime import date, timedelta
 from flask import Flask, render_template, request, abort
+from jinja2.utils import urlize
 from sqlalchemy import asc, desc
 from sqlalchemy.orm import joinedload
 from quassel import quassel_session, Message, Buffer, Sender, Network
@@ -26,6 +27,10 @@ def hash_nick(nick):
 
 
 def process_message(message):
+	# NOTE: Working around jinja2.utils.urlize being far too greedy on matches
+	message = message.replace("\x0f", " \x0f")
+	message = urlize(message)
+	message = message.replace(" \x0f", "\x0f")
 	message = re.sub("\x03(\\d\\d)", r'<span class="color\1">', message)
 	message = message.replace("\x0f", "</span>")
 	return message
