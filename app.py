@@ -33,7 +33,7 @@ def process_message(message):
 	message = message.replace(" \x0f", "\x0f")
 	message = re.sub("\x03(\\d\\d)", r'<span class="color\1">', message)
 	message = message.replace("\x03", "</span>")
-	message = message.replace("\x0f", "</span>")
+	message = message.replace("\x0f", "</b></em></u></span>")  # Nasty.
 	while "\x02" in message:
 	    message = message.replace("\x02", "<b>", 1)
 	    message = message.replace("\x02", "</b>", 1)
