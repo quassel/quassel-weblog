@@ -7,18 +7,18 @@ from sqlalchemy import asc, desc
 from sqlalchemy.orm import joinedload
 from quassel import quassel_session, Message, Buffer, Sender, Network
 
-import config
+import settings
 
 
 app = Flask(__name__)
 
 ## Quassel Connection
-session = quassel_session(config.uri)
+session = quassel_session(settings.uri)
 
 
 @app.route("/")
 def index():
-        return render_template("page/index.html", **{"channels": config.channels})
+        return render_template("page/index.html", **{"channels": settings.channels})
 
 
 def hash_nick(nick):
@@ -48,11 +48,11 @@ def process_message(message):
 
 @app.route("/<name>/")
 def channel_index(name):
-	if name not in config.channels:
+	if name not in settings.channels:
 		abort(404)
 	query = session.query(Message).join(Sender)
 	query = query.order_by(asc(Message.time))
-	query = query.filter(Message.time >= date.today() - timedelta(config.days))
+	query = query.filter(Message.time >= date.today() - timedelta(settings.days))
 	#query = query.options(joinedload(Message.sender))
 	#query = query.options(joinedload(Message.buffer))
 	query = query.join(Message.buffer)
