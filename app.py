@@ -41,8 +41,8 @@ def process_message(message):
 	    message = message.replace("\x1d", "<em>", 1)
 	    message = message.replace("\x1d", "</em>", 1)
 	while "\x1f" in message:
-	    message = message.replace("\x1f", "<em>", 1)
-	    message = message.replace("\x1f", "</em>", 1)
+	    message = message.replace("\x1f", "<u>", 1)
+	    message = message.replace("\x1f", "</u>", 1)
 	return message
 
 
