@@ -32,7 +32,17 @@ def process_message(message):
 	message = urlize(message)
 	message = message.replace(" \x0f", "\x0f")
 	message = re.sub("\x03(\\d\\d)", r'<span class="color\1">', message)
+	message = message.replace("\x03", "</span>")
 	message = message.replace("\x0f", "</span>")
+	while "\x02" in message:
+	    message = message.replace("\x02", "<b>", 1)
+	    message = message.replace("\x02", "</b>", 1)
+	while "\x1d" in message:
+	    message = message.replace("\x1d", "<em>", 1)
+	    message = message.replace("\x1d", "</em>", 1)
+	while "\x1f" in message:
+	    message = message.replace("\x1f", "<em>", 1)
+	    message = message.replace("\x1f", "</em>", 1)
 	return message
 
 
