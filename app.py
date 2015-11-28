@@ -46,9 +46,15 @@ def process_message(message):
 def channel_index(name):
 	if name not in settings.channels:
 		abort(404)
+
+	days = request.args.get("days", "")
+	if days.isdigit():
+		days = min(int(days), 200)
+	else:
+		days = settings.days
 	query = session.query(Message).join(Sender)
 	query = query.order_by(asc(Message.time))
-	query = query.filter(Message.time >= date.today() - timedelta(settings.days))
+	query = query.filter(Message.time >= date.today() - timedelta(days))
 	#query = query.options(joinedload(Message.sender))
 	#query = query.options(joinedload(Message.buffer))
 	query = query.join(Message.buffer)
