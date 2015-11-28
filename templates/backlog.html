@@ -63,6 +63,11 @@
 .color15 { color: #c804bb; }
 </style>
 
+<form id="advanced-search" action=".">
+	<input type="text" name="search" placeholder="Search..." value="{{search}}"/>
+	<input type="submit"/>
+</form>
+
 {% if messages  %}
 <h3>Starting at {{messages[0].time}} on {{channel}}</h3>
 <table class="backlog">
