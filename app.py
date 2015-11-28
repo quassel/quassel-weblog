@@ -66,6 +66,10 @@ def channel_index(name):
 	if nick:
 		query = query.filter(Sender.name.startswith(nick))
 
+	search = request.args.get("search")
+	if search:
+		query = query.filter(Message.message.contains(search))
+
 	context = {
 		"channel": channel_name,
 		"highlight": request.args.get("highlight", "").lower(),
