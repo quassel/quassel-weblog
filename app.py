@@ -11,14 +11,10 @@ import settings
 
 
 app = Flask(__name__)
+app.config["PROPAGATE_EXCEPTIONS"] = True
 
 ## Quassel Connection
 session = quassel_session(settings.uri)
-
-
-@app.route("/")
-def index():
-        return render_template("page/index.html", **{"channels": settings.channels})
 
 
 def hash_nick(nick):
