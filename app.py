@@ -31,14 +31,14 @@ def process_message(message):
 	message = message.replace("\x03", "</span>")
 	message = message.replace("\x0f", "</b></em></u></span>")  # Nasty.
 	while "\x02" in message:
-	    message = message.replace("\x02", "<b>", 1)
-	    message = message.replace("\x02", "</b>", 1)
+		message = message.replace("\x02", "<b>", 1)
+		message = message.replace("\x02", "</b>", 1)
 	while "\x1d" in message:
-	    message = message.replace("\x1d", "<em>", 1)
-	    message = message.replace("\x1d", "</em>", 1)
+		message = message.replace("\x1d", "<em>", 1)
+		message = message.replace("\x1d", "</em>", 1)
 	while "\x1f" in message:
-	    message = message.replace("\x1f", "<u>", 1)
-	    message = message.replace("\x1f", "</u>", 1)
+		message = message.replace("\x1f", "<u>", 1)
+		message = message.replace("\x1f", "</u>", 1)
 	return message
 
 
