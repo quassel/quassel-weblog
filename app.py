@@ -73,7 +73,7 @@ def channel_index(name):
 	context = {
 		"channel": channel_name,
 		"highlight": request.args.get("highlight", "").lower(),
-		"messages": query,
+		"messages": list(query),
 		"hash": hash_nick,
 		"process_message": process_message,
 	}

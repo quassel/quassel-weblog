@@ -63,6 +63,7 @@
 .color15 { color: #c804bb; }
 </style>
 
+{% if messages  %}
 <h3>Starting at {{messages[0].time}} on {{channel}}</h3>
 <table class="backlog">
 	<tbody>
@@ -77,4 +78,13 @@
 	{% endfor %}
 	</tbody>
 </table>
+{% else %}
+<p>
+No results found.
+</p>
+{% endif %}
+
+<script type="text/javascript">
+
+</script>
 {% endblock %}
