@@ -24,6 +24,8 @@ def hash_nick(nick):
 
 def process_message(message):
 	# NOTE: Working around jinja2.utils.urlize being far too greedy on matches
+	if not message:
+		return ""
 	message = message.replace("\x0f", " \x0f")
 	message = urlize(message)
 	message = message.replace(" \x0f", "\x0f")
